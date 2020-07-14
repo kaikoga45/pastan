@@ -66,30 +66,27 @@ Beranda
         <div class="product-wrap">
             <div class="product-list">
                 <ul class="row">
+                    @if ($item_data->count() == 0)
+                    <strong>lol</strong>
+                    @else
+                    @foreach ($item_data as $itd)
                     <li class="col-6 col-lg-6 col-md-6 col-sm-6">
                         <div class="product-box">
-                            <div class="producct-img"><img src="vendors/images/product-img1.jpg" alt=""></div>
+                            <div class="producct-img"><img src="{{$itd->item_image_path}}" alt=""></div>
                             <div class="product-caption">
-                                <h4><a href="#">Gufram Bounce Black</a></h4>
+                                <p style="font-size: 15px; font-weight: bold">{{$itd->item_name}}</p>
                                 <div class="price">
-                                    <del>$55.5</del><ins>$49.5</ins>
+                                    <p style="color: black; font-size: 13px; margin-bottom: 5px">Rp.
+                                        {{$itd->item_price}} /
+                                        {{$itd->item_quantity_get}} {{$itd->item_type_sell}}</p>
+                                    <p>Min {{$itd->item_minimum}} {{$itd->item_type_sell}}</p>
                                 </div>
-                                <a href="#" class="btn btn-outline-primary">Read More</a>
+                                <a href="#" class="btn btn-outline-primary" style="width: 100%">Beli</a>
                             </div>
                         </div>
                     </li>
-                    <li class="col-6 col-lg-6 col-md-6 col-sm-6">
-                        <div class="product-box">
-                            <div class="producct-img"><img src="vendors/images/product-img2.jpg" alt=""></div>
-                            <div class="product-caption">
-                                <h4><a href="#">Gufram Bounce White</a></h4>
-                                <div class="price">
-                                    <del>$75.5</del><ins>$50</ins>
-                                </div>
-                                <a href="#" class="btn btn-outline-primary">Read More</a>
-                            </div>
-                        </div>
-                    </li>
+                    @endforeach
+                    @endif
                 </ul>
             </div>
             <div class="blog-pagination mb-30">

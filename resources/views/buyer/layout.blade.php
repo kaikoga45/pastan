@@ -48,33 +48,15 @@
             <div class="search-toggle-icon dw dw-search2" data-toggle="header_search"></div>
             <div class="header-search">
                 <form action="/test" method="POST">
+                    {{ csrf_field() }}
                     <div class="row">
                         <div class="col-10">
                             <div class="form-group mb-0">
-                                <select class="custom-select2 form-control" name="state"
-                                    style="width: 100%; height: 38px;">
+                                <select class="custom-select2 form-control" name="search" style="width: 100%">
                                     <option value="">Pencarian</option>
-                                    <optgroup label="Alaskan/Hawaiian Time Zone">
-                                        <option value="AK" type="submit">Alaska</option>
-                                        <option value="HI">Hawaii</option>
-                                    </optgroup>
-                                    <optgroup label="Pacific Time Zone">
-                                        <option value="CA">California</option>
-                                        <option value="NV">Nevada</option>
-                                        <option value="OR">Oregon</option>
-                                        <option value="WA">Washington</option>
-                                    </optgroup>
-                                    <optgroup label="Mountain Time Zone">
-                                        <option value="AZ">Arizona</option>
-                                        <option value="CO">Colorado</option>
-                                        <option value="ID">Idaho</option>
-                                        <option value="MT">Montana</option>
-                                        <option value="NE">Nebraska</option>
-                                        <option value="NM">New Mexico</option>
-                                        <option value="ND">North Dakota</option>
-                                        <option value="UT">Utah</option>
-                                        <option value="WY">Wyoming</option>
-                                    </optgroup>
+                                    @foreach ($item_data as $itd)
+                                    <option value="{{$itd->item_name}}">{{$itd->item_name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
