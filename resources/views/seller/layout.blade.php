@@ -25,15 +25,10 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" href="{{asset('src/plugins/datatables/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('src/plugins/datatables/css/responsive.bootstrap4.min.css')}}">
-
-    <!-- bootstrap-touchspin css -->
-    <link rel="stylesheet" type="text/css"
-        href="{{asset('src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.css')}}">
 </head>
 
-<body class="sidebar-dark header-dark">
+<body>
     <!-- Begin Header -->
-    <!--
     <div class="pre-loader">
         <div class="pre-loader-box">
             <div class="loader-logo"><img src="vendors/images/deskapp-logo.svg" alt=""></div>
@@ -46,11 +41,10 @@
             </div>
         </div>
     </div>
-    -->
+
     <div class="header">
         <div class="header-left">
             <div class="menu-icon dw dw-menu"></div>
-            <!--
             <div class="search-toggle-icon dw dw-search2" data-toggle="header_search"></div>
             <div class="header-search">
                 <form action="/test" method="POST">
@@ -73,15 +67,12 @@
                     </div>
                 </form>
             </div>
-             -->
         </div>
         <div class="header-right">
-            @if (Auth::check())
             <div class="dashboard-setting user-notification">
                 <div class="dropdown">
                     <a class="dropdown-toggle no-arrow" href="javascript:;" data-toggle="right-sidebar">
-                        <i class="dw dw-shopping-cart"></i>
-                        <span class="badge notification-active"></span>
+                        <i class="dw dw-settings2"></i>
                     </a>
                 </div>
             </div>
@@ -153,85 +144,47 @@
                         <a class="dropdown-item" href="profile.php"><i class="dw dw-user1"></i> Profile</a>
                         <a class="dropdown-item" href="profile.php"><i class="dw dw-settings2"></i> Setting</a>
                         <a class="dropdown-item" href="faq.php"><i class="dw dw-help"></i> Help</a>
-                        <a class="dropdown-item" href="/logout"><i class="dw dw-logout"></i> Log Out</a>
+                        <a class="dropdown-item" href="login.php"><i class="dw dw-logout"></i> Log Out</a>
                     </div>
                 </div>
             </div>
-            @else
-            <div class="dashboard-setting user-notification">
-                <div class="dropdown">
-                    <a class="dropdown-toggle no-arrow" href="/login">
-                        <i class="dw dw-login"></i>
-                    </a>
-                </div>
-            </div>
-            @endif
         </div>
     </div>
 
     <div class="right-sidebar">
         <div class="sidebar-title">
             <h3 class="weight-600 font-16 text-blue">
-                Keranjang Belanja
-                <span class="btn-block font-weight-400 font-12">Berikut ini daftar bahan yang telah anda pilih</span>
+                Layout Settings
+                <span class="btn-block font-weight-400 font-12">User Interface Settings</span>
             </h3>
             <div class="close-sidebar" data-toggle="right-sidebar-close">
                 <i class="icon-copy ion-close-round"></i>
             </div>
         </div>
-        @if (Auth::check())
         <div class="right-sidebar-body customscroll">
             <div class="right-sidebar-body-content">
-                <div class="row">
-                    @foreach ($cart_data as $cdt)
-                    <div class="col-12 col-sm-12 col-md-4 mb-30">
-                        <div class="card card-box">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <img src="vendors/images/img2.jpg" alt="" style="width:70px; height:60px">
-                                    </div>
-                                    <div class="col-8">
-                                        <form action="/lol">
-                                            <h5 class="card-title" style="margin-bottom: 5px">{{$cdt->item_name}}
-                                                <a href="/deleteSpecificCart/{{$cdt->id_item}}"><i
-                                                        class="ml-auto dw dw-trash"></i></a>
-                                            </h5>
-                                        </form>
-                                        <p class="card-text">Jumlah : {{$cdt->quantity_item}}<br>Sub Total : Rp.
-                                            {{$cdt->sub_total_price}}</p>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row" style="margin-top:5px">
-                                    <div class="col-6">
-                                        <button class="btn btn-outline-info" style="width: 100%"><i
-                                                class="icon-copy fa fa-minus-circle" aria-hidden="true"></i></button>
-                                    </div>
-                                    <div class="col-6">
-                                        <button class="btn btn-outline-info" style="width: 100%"><i
-                                                class="icon-copy fa fa-plus-circle" aria-hidden="true"></i></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-                <hr>
-                <h4 class="weight-600 font-18 pb-10">Total Harga : Rp. {{$total_price_cart}}</h4>
+                <h4 class="weight-600 font-18 pb-10">Header Background</h4>
                 <div class="sidebar-btn-group pb-30 mb-10">
-                    <a class="btn btn-outline-danger" href="/deleteAllCartUser">Hapus</a>
-                    <a class="btn btn-outline-info">Beli</a>
+                    <a href="javascript:void(0);" class="btn btn-outline-primary header-white">White</a>
+                    <a href="javascript:void(0);" class="btn btn-outline-primary header-dark active">Dark</a>
+                </div>
+
+                <h4 class="weight-600 font-18 pb-10">Sidebar Background</h4>
+                <div class="sidebar-btn-group pb-30 mb-10">
+                    <a href="javascript:void(0);" class="btn btn-outline-primary sidebar-light ">White</a>
+                    <a href="javascript:void(0);" class="btn btn-outline-primary sidebar-dark active">Dark</a>
+                </div>
+
+                <div class="reset-options pt-30 text-center">
+                    <button class="btn btn-danger" id="reset-settings">Reset Settings</button>
                 </div>
             </div>
         </div>
-        @endif
     </div>
     <!-- End Header -->
 
     <!-- Begin Sidebar -->
-    <div class=" left-side-bar">
+    <div class="left-side-bar">
         <div class="brand-logo">
             <a href="index.php">
                 <img src="vendors/images/deskapp-logo.svg" alt="" class="dark-logo">
@@ -244,20 +197,32 @@
         <div class="menu-block customscroll">
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
-                    <li>
-                        <a href="/" class="dropdown-toggle no-arrow">
-                            <span class="micon dw dw-home"></span><span class="mtext">Beranda</span>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
                         </a>
+                        <ul class="submenu">
+                            <li><a href="index.php">Dashboard style 1</a></li>
+                            <li><a href="index2.php">Dashboard style 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon dw dw-edit2"></span><span class="mtext">Forms</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="form-basic.php">Form Basic</a></li>
+                            <li><a href="advanced-components.php">Advanced Components</a></li>
+                            <li><a href="form-wizard.php">Form Wizard</a></li>
+                            <li><a href="html5-editor.php">HTML5 Editor</a></li>
+                            <li><a href="form-pickers.php">Form Pickers</a></li>
+                            <li><a href="image-cropper.php">Image Cropper</a></li>
+                            <li><a href="image-dropzone.php">Image Dropzone</a></li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="/" class="dropdown-toggle no-arrow">
-                            <span class="micon dw dw-question"></span><span class="mtext">Panduan</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/aboutCreator" class="dropdown-toggle no-arrow">
-                            <span class="micon dw dw-information"></span><span class="mtext">Tentang
-                                Pastan</span>
+                        <a href="calendar.php" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-calendar1"></span><span class="mtext">Calendar</span>
                         </a>
                     </li>
                 </ul>
@@ -283,53 +248,7 @@
     <script src="{{asset('src/plugins/datatables/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{asset('src/plugins/datatables/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{asset('vendors/scripts/dashboard.js')}}"></script>
-
-    <!-- bootstrap-touchspin js -->
-    <script src="{{asset('src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js')}}"></script>
-    <script src="{{asset('vendors/scripts/advanced-components.js')}}"></script>
-
     <!-- End Script -->
-    <script>
-        function myFunction() {
-            var input, filter, ul, li, a, i, txtValue;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            ul = document.getElementById("myUL");
-            li = ul.getElementsByTagName("li");
-            for (i = 0; i < li.length; i++) {
-                a = li[i].getElementsByTagName("a")[0];
-                txtValue = a.textContent || a.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
-                }
-            }
-        }
-    </script>
-    <!--
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#productBox').on('submit', function(e){
-                e.preventDefault();
-                $.ajax({
-                    type: "POST",
-                    url: "/addToCart",
-                    data: $('#productBox').serialize(),
-                    success: function (response) {
-                        console.log(response)
-                        alert("success");
-                        //do something
-                    },
-                    error: function(error){
-                            console.log(error)
-                            alert("error");
-                    }
-                }); 
-            });
-        });
-    </script>
-    -->
 </body>
 
 </html>

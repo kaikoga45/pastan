@@ -25,7 +25,7 @@ Beranda
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <div class="col-sm-12 col-md-12 col-lg-12 mb-30">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-30">
                             <div class="card bg-dark card-box">
                                 <img class="card-img" src="vendors/images/img1.jpg" alt="Card image">
                                 <div class="card-img-overlay">
@@ -38,7 +38,20 @@ Beranda
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <div class="col-sm-12 col-md-12 col-lg-12 mb-30">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-30">
+                            <div class="card bg-dark card-box">
+                                <img class="card-img" src="vendors/images/img1.jpg" alt="Card image">
+                                <div class="card-img-overlay">
+                                    <h5 class="card-title weight-500">Card title</h5>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural
+                                        lead-in.</p>
+                                    <p class="card-text">Last updated 3 mins ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-30">
                             <div class="card bg-dark card-box">
                                 <img class="card-img" src="vendors/images/img1.jpg" alt="Card image">
                                 <div class="card-img-overlay">
@@ -63,44 +76,57 @@ Beranda
         </div>
         <!-- End Category -- >
         <!-- Begin Display Product -->
+        <div class="search-icon-box card-box mb-30">
+            <input type="text" class="border-radius-10" id="myInput" onkeyup="myFunction()"
+                placeholder="Pencarian bahan..." title="Type in a name">
+            <i class="search_icon dw dw-search"></i>
+        </div>
         <div class="product-wrap">
             <div class="product-list">
-                <ul class="row">
+                <ul class="row" id="myUL">
                     @if ($item_data->count() == 0)
                     <strong>lol</strong>
                     @else
                     @foreach ($item_data as $itd)
                     <li class="col-6 col-lg-6 col-md-6 col-sm-6">
-                        <div class="product-box">
-                            <div class="producct-img"><img src="{{$itd->item_image_path}}" alt=""></div>
-                            <div class="product-caption">
-                                <p style="font-size: 15px; font-weight: bold">{{$itd->item_name}}</p>
-                                <div class="price">
-                                    <p style="color: black; font-size: 13px; margin-bottom: 5px">Rp.
-                                        {{$itd->item_price}} /
-                                        {{$itd->item_quantity_get}} {{$itd->item_type_sell}}</p>
-                                    <p>Min {{$itd->item_minimum}} {{$itd->item_type_sell}}</p>
+                        <form method="POST" action="/addToCart">
+                            {{ csrf_field() }}
+                            <input type="hidden" value="{{$itd->item_id}}" name="id_item_buy">
+                            <input type="hidden" value="{{$itd->item_name}}" name="name_item_buy">
+                            <div class="product-box">
+                                <div class="producct-img"><img src="{{$itd->item_image_path}}" alt=""></div>
+                                <div class="product-caption">
+                                    <a>
+                                        <p style="font-size: 15px; font-weight: bold">{{$itd->item_name}}</p>
+                                    </a>
+                                    <div class="price">
+                                        <p style="color: black; font-size: 13px; margin-bottom: 5px">Rp.
+                                            {{$itd->item_price}} /
+                                            {{$itd->item_quantity_get}} {{$itd->item_type_sell}}</p>
+                                        <p>Min {{$itd->item_minimum}} {{$itd->item_type_sell}} | Stock
+                                            {{$itd->item_stock}}
+                                            {{$itd->item_type_sell}}</p>
+                                    </div>
+                                    @if ($itd->item_stock == 0)
+                                    <button class="btn btn-outline-secondary" style="width: 100%" type="button">
+                                        Habis
+                                    </button>
+                                    @else
+                                    <div class="form-group">
+                                        <label>Jumlah Beli</label>
+                                        <input id="demo3_22" type="text" value="{{$itd->item_minimum}}" name="demo3_22">
+                                    </div>
+                                    <button class="btn btn-outline-primary" style="width: 100%" type="submit">
+                                        Tambah
+                                    </button>
+                                    @endif
                                 </div>
-                                <a href="#" class="btn btn-outline-primary" style="width: 100%">Beli</a>
                             </div>
-                        </div>
+                        </form>
                     </li>
                     @endforeach
                     @endif
                 </ul>
-            </div>
-            <div class="blog-pagination mb-30">
-                <div class="btn-toolbar justify-content-center mb-15">
-                    <div class="btn-group">
-                        <a href="#" class="btn btn-outline-primary prev"><i class="fa fa-angle-double-left"></i></a>
-                        <a href="#" class="btn btn-outline-primary">1</a>
-                        <a href="#" class="btn btn-outline-primary">2</a>
-                        <span class="btn btn-primary current">3</span>
-                        <a href="#" class="btn btn-outline-primary">4</a>
-                        <a href="#" class="btn btn-outline-primary">5</a>
-                        <a href="#" class="btn btn-outline-primary next"><i class="fa fa-angle-double-right"></i></a>
-                    </div>
-                </div>
             </div>
         </div>
         <!-- End Display Product -->
