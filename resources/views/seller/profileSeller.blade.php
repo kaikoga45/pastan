@@ -1,4 +1,4 @@
-@extends('buyer.layout')
+@extends('seller.layout')
 
 @section('title')
 Profil
@@ -16,7 +16,7 @@ Profil
                         </div>
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="/">Beranda</a></li>
+                                <li class="breadcrumb-item"><a href="/seller">Dashboard</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Profil</li>
                             </ol>
                         </nav>
@@ -93,7 +93,7 @@ Profil
                                     <!-- Setting Tab start -->
                                     <div class="tab-pane fade height-100-p active show" id="setting" role="tabpanel">
                                         <div class="profile-setting">
-                                            <form method="POST" action="/postUpdateProfileBuyer"
+                                            <form method="POST" action="/postUpdateProfileSeller"
                                                 enctype="multipart/form-data">
                                                 {{ csrf_field() }}
                                                 <ul class="profile-edit-list row">

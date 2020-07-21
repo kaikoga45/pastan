@@ -7,9 +7,9 @@
     <title>Pastan - Registrasi</title>
 
     <!-- Site favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('vendors/images/apple-touch-icon.png')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('vendors/images/favicon-32x32.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('vendors/images/favicon-16x16.png')}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('vendors/images/pastan-icon-180.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('vendors/images/pastan-icon-32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('vendors/images/pastan-icon-16.png')}}">
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -25,11 +25,11 @@
 </head>
 
 <body class="login-page">
-    <div class="login-header box-shadow">
-        <div class="container-fluid d-flex justify-content-between align-items-center">
+    <div class="login-header box-shadow" style="background-color:#031e23">
+        <div class=" container-fluid d-flex justify-content-between align-items-center">
             <div class="brand-logo">
-                <a href="login.php">
-                    <img src="vendors/images/deskapp-logo.svg" alt="">
+                <a href="/login">
+                    <img src="vendors/images/pastan-logo.svg" alt="">
                 </a>
             </div>
         </div>

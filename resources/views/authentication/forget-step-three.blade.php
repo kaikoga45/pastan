@@ -4,7 +4,7 @@
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8">
-    <title>Pastan - Login</title>
+    <title>Pastan - Reset Kata Sandi</title>
 
     <!-- Site favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{asset('vendors/images/pastan-icon-180.png')}}">
@@ -38,68 +38,42 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6 col-lg-7">
-                    <img src="vendors/images/login-page-img.png" alt="">
+                    <img src="vendors/images/register-page-img.png" alt="">
                 </div>
                 <div class="col-md-6 col-lg-5">
                     <div class="login-box bg-white box-shadow border-radius-10">
                         <div class="login-title">
-                            <h2 class="text-center text-primary">Login ke Pastan</h2>
+                            <h2 class="text-center text-primary">Reset Kata Sandi Akun</h2>
                         </div>
-
-                        @if (session('loginFailed'))
+                        <div class="alert alert-info" role="alert" style="text-align: justify">
+                            Silahkan masukkan kata sandi baru untuk akun anda.
+                        </div>
+                        @if (session('NotMatch'))
                         <div class="alert alert-danger alert-dismissible">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>{{ session('loginFailed') }}!</strong>
+                            <strong>{{ session('NotMatch') }}!</strong>
                         </div>
                         @endif
-                        @if (session('regSuccess'))
-                        <div class="alert alert-success alert-dismissible">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>{{ session('regSuccess') }}!</strong>
-                        </div>
-                        @endif
-                        @if (session('PassChangeSuccess'))
-                        <div class="alert alert-success alert-dismissible">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>{{ session('PassChangeSuccess') }}!</strong>
-                        </div>
-                        @endif
-                        <form action="/postLogin" method="POST" name="loginForm">
+                        <form action="/postForgetNewPass" method="POST">
                             {{ csrf_field() }}
+                            <input type="hidden" value="{{ session('data_email_1') }}" name="inputEmail">
                             <div class="input-group custom">
-                                <input type="text" class="form-control form-control-lg" placeholder="Email" name="email"
-                                    required>
+                                <input type="text"
+                                    class="form-control form-control-lg {{ $errors->has('password') ? 'is-invalid' :  '' }}"
+                                    placeholder="Kata Sandi Baru" name="password" required>
                                 <div class="input-group-append custom">
-                                    <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
+                                    <span class="input-group-text"><i class="icon-copy dw dw-lock"></i></span>
                                 </div>
                             </div>
-                            <div class="input-group custom">
-                                <input type="password" class="form-control form-control-lg" placeholder="Kata Sandi"
-                                    name="password" required>
-                                <div class="input-group-append custom">
-                                    <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
-                                </div>
+                            @if ($errors->has('password'))
+                            <div class="invalid-feedback">
+                                {{$errors->first('password')}}
                             </div>
-                            <div class="row pb-30">
-                                <div class="col-12">
-                                    <div class="forgot-password"><a href="/forgetPassword">Lupa kata sandi?</a>
-                                    </div>
-                                </div>
-                            </div>
+                            @endif
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="input-group mb-0">
-                                        <!--
-											use code for form submit
-											<input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In">
-										-->
-                                        <button class="btn btn-primary btn-lg btn-block" type="submit">Masuk</button>
-                                    </div>
-                                    <div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">Atau
-                                    </div>
-                                    <div class="input-group mb-0">
-                                        <a class="btn btn-outline-primary btn-lg btn-block" href="/register">Registrasi
-                                            untuk membuat akun</a>
+                                        <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +91,6 @@
     <script src="{{asset('vendors/scripts/script.min.js')}}"></script>
     <script src="{{asset('vendors/scripts/process.js')}}"></script>
     <script src="{{asset('vendors/scripts/layout-settings.js')}}"></script>
-
 </body>
 
 </html>

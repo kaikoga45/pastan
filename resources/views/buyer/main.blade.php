@@ -20,61 +20,18 @@ Beranda
                 </div>
             </div>
         </div>
-        <!-- Begin Category -->
-        <div class="row">
-            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-30">
-                            <div class="card bg-dark card-box">
-                                <img class="card-img" src="vendors/images/img1.jpg" alt="Card image">
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title weight-500">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural
-                                        lead-in.</p>
-                                    <p class="card-text">Last updated 3 mins ago</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-30">
-                            <div class="card bg-dark card-box">
-                                <img class="card-img" src="vendors/images/img1.jpg" alt="Card image">
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title weight-500">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural
-                                        lead-in.</p>
-                                    <p class="card-text">Last updated 3 mins ago</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-30">
-                            <div class="card bg-dark card-box">
-                                <img class="card-img" src="vendors/images/img1.jpg" alt="Card image">
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title weight-500">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural
-                                        lead-in.</p>
-                                    <p class="card-text">Last updated 3 mins ago</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
+        @if (session('addComplete'))
+        <div class="alert alert-success alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>{{ session('addComplete') }}!</strong>
         </div>
-        <!-- End Category -- >
+        @endif
+        @if (session('addError'))
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>{{ session('addError') }}!</strong>
+        </div>
+        @endif
         <!-- Begin Display Product -->
         <div class="search-icon-box card-box mb-30">
             <input type="text" class="border-radius-10" id="myInput" onkeyup="myFunction()"
@@ -88,14 +45,16 @@ Beranda
                     <strong>lol</strong>
                     @else
                     @foreach ($item_data as $itd)
-                    <li class="col-6 col-lg-6 col-md-6 col-sm-6">
+                    @if ($itd->item_status == 'tersedia')
+                    <li class="col-6 col-lg-4 col-md-6 col-sm-6">
                         <form method="POST" action="/addToCart">
                             {{ csrf_field() }}
                             <input type="hidden" value="{{$itd->item_id}}" name="id_item_buy">
                             <input type="hidden" value="{{$itd->item_name}}" name="name_item_buy">
                             <div class="product-box">
-                                <div class="producct-img"><img src="{{$itd->item_image_path}}" alt=""></div>
-                                <div class="product-caption">
+                                <div class="producct-img"><img src="{{asset('storage/'.$itd->item_image_path)}}" alt="">
+                                </div>
+                                <div class=" product-caption">
                                     <a>
                                         <p style="font-size: 15px; font-weight: bold">{{$itd->item_name}}</p>
                                     </a>
@@ -113,7 +72,7 @@ Beranda
                                     </button>
                                     @else
                                     <div class="form-group">
-                                        <label>Jumlah Beli</label>
+                                        <label>Ingin pesan</label>
                                         <input id="demo3_22" type="text" value="{{$itd->item_minimum}}" name="demo3_22">
                                     </div>
                                     <button class="btn btn-outline-primary" style="width: 100%" type="submit">
@@ -124,6 +83,7 @@ Beranda
                             </div>
                         </form>
                     </li>
+                    @endif
                     @endforeach
                     @endif
                 </ul>
