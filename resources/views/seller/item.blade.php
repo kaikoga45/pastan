@@ -61,7 +61,7 @@ Barang
                     @foreach ($data_item as $dtm)
                     <tr>
                         <td class="table-plus">
-                            <img src="{{asset('storage/'.$dtm->item_image_path)}}" width="70" height="70" alt="">
+                            <img src="{{asset('image/'.$dtm->item_image_path)}}" width="70" height="70" alt="">
                         </td>
                         <td>{{$dtm->item_name}}</td>
                         <td>{{$dtm->item_stock}}</td>

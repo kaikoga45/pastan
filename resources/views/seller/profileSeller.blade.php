@@ -48,7 +48,7 @@ Profil
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mb-30">
                     <div class="pd-20 card-box height-100-p">
                         <div class="profile-photo">
-                            <img src="{{asset('storage/'.$data_user->image_path)}}" alt="" class="avatar-photo">
+                            <img src="{{asset('image/'.$data_user->image_path)}}" alt="" class="avatar-photo">
                         </div>
                         <h5 class="text-center h5 mb-0">{{$data_user->name}}</h5>
                         <p class="text-center text-muted font-14">Bergabung sejak {{$data_user->created_at}}</p>

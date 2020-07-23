@@ -57,7 +57,7 @@
                             @if (Auth::user()->image_path == 'src/images/avatar.png')
                             <img src="src/images/avatar.png" alt="">
                             @else
-                            <img src="{{asset('storage/'.Auth::user()->image_path)}}" alt="">
+                            <img src="{{asset('image/'.Auth::user()->image_path)}}" alt="">
                             @endif
                         </span>
                         <span class="user-name">{{Auth::user()->name}}</span>
@@ -104,7 +104,7 @@
                                         $image_item =
                                         \App\item::select('item_image_path')->where('item_id','=',$cdt->id_item)->first();
                                         @endphp
-                                        <img src="{{asset('storage/'.$image_item->item_image_path)}}"
+                                        <img src="{{asset('image/'.$image_item->item_image_path)}}"
                                             style="width:70px; height:60px">
                                     </div>
                                     <div class="col-8 col-lg-8 col-sm-8 col-md-8">
@@ -164,11 +164,13 @@
                             <span class="micon dw dw-home"></span><span class="mtext">Beranda</span>
                         </a>
                     </li>
+                    @if (Auth::check())
                     <li>
                         <a href="/orderBuyer" class="dropdown-toggle no-arrow">
                             <span class="micon dw dw-information"></span><span class="mtext">Status Pesanan</span>
                         </a>
                     </li>
+                    @endif
                 </ul>
             </div>
         </div>

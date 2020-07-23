@@ -59,7 +59,7 @@
                         <form action="/postVerified" method="POST">
                             {{ csrf_field() }}
                             <div class="input-group custom">
-                                <input type="text" class="form-control form-control-lg" placeholder="Kode Verifikasi"
+                                <input type="number" class="form-control form-control-lg" placeholder="Kode Verifikasi"
                                     name="code_verified" required>
                                 <div class="input-group-append custom">
                                     <span class="input-group-text"><i class="icon-copy dw dw-lock"></i></span>

@@ -52,7 +52,7 @@ Beranda
                             <input type="hidden" value="{{$itd->item_id}}" name="id_item_buy">
                             <input type="hidden" value="{{$itd->item_name}}" name="name_item_buy">
                             <div class="product-box">
-                                <div class="producct-img"><img src="{{asset('storage/'.$itd->item_image_path)}}" alt="">
+                                <div class="producct-img"><img src="{{asset('image/'.$itd->item_image_path)}}" alt="">
                                 </div>
                                 <div class=" product-caption">
                                     <a>

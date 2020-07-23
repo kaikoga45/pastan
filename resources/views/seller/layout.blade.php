@@ -44,7 +44,7 @@
                             @if (Auth::user()->image_path == 'src/images/avatar.png')
                             <img src="src/images/avatar.png" alt="">
                             @else
-                            <img src="{{asset('storage/'.Auth::user()->image_path)}}" alt="">
+                            <img src="{{asset('image/'.Auth::user()->image_path)}}" alt="">
                             @endif
                         </span>
                         <span class="user-name">{{Auth::user()->name}}</span>

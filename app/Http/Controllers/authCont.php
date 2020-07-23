@@ -96,7 +96,7 @@ class authCont extends Controller
             $data_code->email_verified = 'true';
             $data_code->verified_code = 1;
             $data_code->save();
-            return redirect('/')-with('addComplete', 'Anda telah berhasil mendaftar. Selamat datang di PasTan!');
+            return redirect('/')->with('addComplete', 'Anda telah berhasil mendaftar. Selamat datang di PasTan!');
         }else{
             return redirect()->back()->with('NotMatch', '6 Digit angka yang anda masukkan adalah salah!');
         }
