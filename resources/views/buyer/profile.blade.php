@@ -64,7 +64,7 @@ Profil
                                     @if ($data_user->phone_number == null)
                                     Belum dimasukkan!
                                     @else
-                                    {{$data_user->phone_number}}
+                                    {{Crypt::decrypt($data_user->phone_number)}}
                                     @endif
                                 </li>
                                 <li>
@@ -72,7 +72,7 @@ Profil
                                     @if ($data_user->address == null)
                                     Belum dimasukkan!
                                     @else
-                                    {{$data_user->address}}
+                                    {{Crypt::decrypt($data_user->address)}}
                                     @endif
                                 </li>
                             </ul>
@@ -90,6 +90,16 @@ Profil
                                     </li>
                                 </ul>
                                 <div class="tab-content">
+                                    @php
+                                    if ($data_user->phone_number == null && $data_user->address == null){
+                                    $phone_number = "";
+                                    $address = "";
+                                    }else{
+                                    $phone_number = Crypt::decrypt($data_user->phone_number);
+                                    $address = Crypt::decrypt($data_user->address);
+                                    }
+                                    @endphp
+
                                     <!-- Setting Tab start -->
                                     <div class="tab-pane fade height-100-p active show" id="setting" role="tabpanel">
                                         <div class="profile-setting">
@@ -107,13 +117,12 @@ Profil
                                                         <div class="form-group">
                                                             <label>Nomor Telepon</label>
                                                             <input class="form-control form-control-lg" type="text"
-                                                                name="phone_number" value="{{$data_user->phone_number}}"
-                                                                required>
+                                                                name="phone_number" value="{{$phone_number}}" required>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Alamat</label>
                                                             <textarea class="form-control" name="address"
-                                                                required>{{$data_user->address}}</textarea>
+                                                                required>{{$address}}</textarea>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Foto Profil</label>

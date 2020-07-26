@@ -68,7 +68,8 @@ $data_order = \App\buyerOrder::distinct()->select('buyer_name','buyer_address', 
                         <th>Nama Pemesan</th>
                         <th>Alamat</th>
                         <th>Nomor Kontak</th>
-                        <th>Item Yang Dipesan</th>
+                        <th>Barang Yang Dipesan</th>
+                        <th>Total Harga</th>
                         <th>Tindakan Anda</th>
                     </tr>
                 </thead>
@@ -79,11 +80,16 @@ $data_order = \App\buyerOrder::distinct()->select('buyer_name','buyer_address', 
                     $true_alone = "true";
                     @endphp
                     @foreach ($data_order as $dto)
+                    @php
+                    $total_price = \App\buyerOrder::where([['id_buyer','=', $dto->id_buyer],['id_seller', '=',
+                    $seller->id]])->sum('total_price');
+                    @endphp
                     <tr>
                         <td>{{$dto->buyer_name}}</td>
-                        <td>{{$dto->buyer_address}}</td>
-                        <td>{{$dto->buyer_phone_number}}</td>
+                        <td>{{Crypt::decrypt($dto->buyer_address)}}</td>
+                        <td>{{Crypt::decrypt($dto->buyer_phone_number)}}</td>
                         <td><a href="/showDetailOrder/{{$dto->id_buyer}}" class="btn btn-primary">Lihat Detail</a></td>
+                        <td>{{$total_price}}</td>
                         <td>
 
                             @if ($dto->sender == $seller->id && $dto->status_order == $wait_confirm_status)

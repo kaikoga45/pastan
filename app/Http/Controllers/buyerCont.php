@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\cart;
-use Auth;
 use App\item;
 use App\buyerOrder;
 use App\User;
 
 use Storage;
 use Validator;
+use Crypt;
+use Auth;
 
 class buyerCont extends Controller
 {
@@ -235,8 +236,8 @@ class buyerCont extends Controller
         }
 
         $data_user->name = $req->name;
-        $data_user->phone_number = $req->phone_number;
-        $data_user->address = $req->address;
+        $data_user->phone_number = Crypt::encrypt($req->phone_number);
+        $data_user->address = Crypt::encrypt($req->address);
         $data_user->save();
         return redirect ()->back()->with('processComplete', 'Telah berhasil melakukan update data pribadi anda!');
     }
@@ -246,7 +247,6 @@ class buyerCont extends Controller
         $check_go = 'true';
 
         $data_cart = cart::where('id_buyer','=', $user->id)->get();
-        $total_price_user = cart::where('id_buyer','=', $user->id)->sum('sub_total_price');
         
         foreach($data_cart as $dtc){
             $data_item = item::where('item_id', '=',$dtc->id_item)->first();
@@ -283,7 +283,7 @@ class buyerCont extends Controller
                 $add_buyerOrder_data->buyer_address = $buyer_info->address;
                 $add_buyerOrder_data->buyer_phone_number = $buyer_info->phone_number;
                 $add_buyerOrder_data->order_date = date("Y-m-d");
-                $add_buyerOrder_data->total_price = $total_price_user;
+                $add_buyerOrder_data->total_price = $dtc->sub_total_price;
                 $add_buyerOrder_data->sender = $who_send->id_seller;
                 $name_sender = item::where('item_id_seller', '=',$who_send->id_seller)->first();
                 $add_buyerOrder_data->sender_name = $name_sender->item_name_seller;           

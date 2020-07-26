@@ -136,10 +136,12 @@
                 </div>
                 <hr>
                 <h4 class="weight-600 font-18 pb-10">Total Harga : Rp. {{$total_price_cart}}</h4>
+                @if (count($cart_data)!=null)
                 <div class="sidebar-btn-group pb-30 mb-10">
                     <a class="btn btn-outline-danger" href="/deleteAllCartUser">Hapus</a>
                     <a class="btn btn-outline-info" href="/orderUp">Beli</a>
                 </div>
+                @endif
             </div>
         </div>
         @endif

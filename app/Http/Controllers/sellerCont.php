@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Auth;
 use Storage;
+use Crypt;
 
 use App\item;
 use App\cart;
@@ -21,8 +22,7 @@ class sellerCont extends Controller
         $seller = Auth::user();
         $data_item = item::where('item_id_seller','=', $seller->id);
         $check_stock = item::where([['item_stock','=', 0], ['item_id_seller','=', $seller->id]]);
-        $check_order = buyerOrder::where('id_seller','=', $seller->id)->get();
-
+        $check_order = buyerOrder::distinct()->select('id_seller')->where('id_seller','=', $seller->id)->get();
         return view('seller.main', ['data_item'=>$data_item, 'zero_stock'=>$check_stock, 'check_order'=>$check_order]);
     }
 
@@ -237,8 +237,8 @@ class sellerCont extends Controller
         }
 
         $data_user->name = $req->name;
-        $data_user->phone_number = $req->phone_number;
-        $data_user->address = $req->address;
+        $data_user->phone_number = Crypt::encrypt($req->phone_number);
+        $data_user->address = Crypt::encrypt($req->address);
         $data_user->save();
         return redirect ()->back()->with('processComplete', 'Telah berhasil melakukan update data pribadi anda!');
     }

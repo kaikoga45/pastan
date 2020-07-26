@@ -64,7 +64,7 @@ Beranda
                                             {{$itd->item_quantity_get}} {{$itd->item_type_sell}}</p>
                                         <p>Min {{$itd->item_minimum}} {{$itd->item_type_sell}} | Stock
                                             {{$itd->item_stock}}
-                                            {{$itd->item_type_sell}}</p>
+                                            {{$itd->item_type_sell}} <br>Oleh : {{$itd->item_name_seller}}</p>
                                     </div>
                                     @if ($itd->item_stock == 0)
                                     <button class="btn btn-outline-secondary" style="width: 100%" type="button">

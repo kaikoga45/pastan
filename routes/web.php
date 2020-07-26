@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-$exitCode = Artisan::call('storage:link', [] );
-
 /*                  Route for Auth               */
 Route::get('/login', 'authCont@viewLogin')->name('login');
 
