@@ -30,6 +30,6 @@ class ForgetPass extends Mailable
      */
     public function build()
     {
-        return $this->from('no-reply@pasartanawangko.my.id')->subject('Forget Password')->markdown('email.forget-password')->with('data_user_forget_pass', $this->data_user_forget_pass);
+        return $this->from('no-reply@pasartanawangko.my.id')->subject('Lupa Kata Sandi')->markdown('email.forget-password')->with('data_user_forget_pass', $this->data_user_forget_pass);
     }
 }

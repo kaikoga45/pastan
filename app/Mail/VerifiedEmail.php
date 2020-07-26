@@ -30,6 +30,6 @@ class VerifiedEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('no-reply@pasartanawangko.my.id')->subject('Verification Email')->markdown('email.verified-email')->with('data', $this->data);
+        return $this->from('no-reply@pasartanawangko.my.id')->subject('Verifikasi Email')->markdown('email.verified-email')->with('data', $this->data);
     }
 }

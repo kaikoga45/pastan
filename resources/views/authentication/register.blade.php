@@ -45,6 +45,9 @@
                         <div class="login-title">
                             <h2 class="text-center text-primary">Registrasi Akun</h2>
                         </div>
+                        <div class="alert alert-info" role="alert" style="text-align: justify">
+                            Pastikan alamat email anda masih valid, agar kami bisa mengirimkan sebuah email ke anda!
+                        </div>
                         <form action="/postRegister" method="POST">
                             {{ csrf_field() }}
                             <div class="input-group custom">

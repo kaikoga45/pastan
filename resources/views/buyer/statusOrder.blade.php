@@ -59,7 +59,7 @@ Status Pesanan
             <table class="data table stripe hover nowrap">
                 <thead>
                     <tr>
-                        <th>Nama Item</th>
+                        <th>Nama Barang</th>
                         <th>Jumlah</th>
                         <th>Tipe Berat</th>
                         <th>Total Harga</th>

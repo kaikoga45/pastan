@@ -46,9 +46,7 @@
                             <h2 class="text-center text-primary">Verifikasi Email</h2>
                         </div>
                         <div class="alert alert-info" role="alert" style="text-align: justify">
-                            Sebuah email telah dikirim ke <strong>{{$data_email}}</strong>, yang berisi 6 digit angka.
-                            Buka kotak masuk email anda, kemudian salin 6 digit angka tersebut dan tempel ke kotak bawah
-                            ini.
+                            Masukkan 6 digit angka yang kami kirim ke <strong>{{$data_email}}</strong>
                         </div>
                         @if (session('NotMatch'))
                         <div class="alert alert-danger alert-dismissible">

@@ -1,14 +1,12 @@
 @component('mail::message')
-# Hello, {{$data_user_forget_pass['name']}}
+# Hi, {{$data_user_forget_pass['name']}}
+Tinggal satu langkah lagi untuk mereset kata sandimu. Kamu hanya perlu memasukkan kode OTP di bawah ini pada halaman
+konfirmasi, lalu reset kata sandimu.
 
-Anda telah menerima email ini karena telah meminta untuk mereset kata sandi akun anda. <br>
-Silahkan salin 6 digit angka dibawah ini kemudian masukkan ke kolom yang meminta inputan 6 digit angka. <br>
-Anda bisa abaikan apabila tidak meminta untuk mereset akun anda.
-
-@component('mail::button', ['url' => ''])
+@component('mail::panel')
 {{$data_user_forget_pass['code']}}
 @endcomponent
 
-Terima kasih,<br>
+Cheers,<br>
 {{ config('app.name') }}
 @endcomponent

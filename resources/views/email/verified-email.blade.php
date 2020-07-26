@@ -1,14 +1,12 @@
 @component('mail::message')
-# Selamat datang, {{$data['name']}}
+# Hi, {{$data['name']}}
 
-Terima kasih telah mendaftar di PasTan!. Ada langkah terakhir yang anda harus lakukan yaitu <br>
-menyalin 6 digit angka dikotak biru bawah ini kemudian masukkan di kolom yang meminta inputan 6 digit angka. <br>
-Langkah ini berfungsi untuk memastikan bahwa email anda masukkan adalah valid.
-
-@component('mail::button', ['url' => ''])
+Tinggal satu langkah lagi untuk menjadi pengguna PasTan. Kamu hanya perlu memasukkan kode OTP di bawah ini pada halaman
+konfirmasi, lalu tekan submit untuk menjadi pengguna PasTan.
+@component('mail::panel')
 {{$data['code']}}
 @endcomponent
 
-Terima kasih,<br>
+Cheers,<br>
 {{ config('app.name') }}
 @endcomponent

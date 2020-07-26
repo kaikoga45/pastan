@@ -153,7 +153,21 @@ class authCont extends Controller
         $data_user->password = $new_pass;
         $data_user->save();
 
-        return redirect('/login')->with('PassChangeSuccess', 'Kata sandi akun anda telah berhasil direset. Silahkan login!');
+        return redirect('/login')->with('PassChangeSuccess', 'Kata sandi akun anda telah berhasil direset. Silahkan login ulang!');
     }
 
+    public function splitUser(){   
+        if (Auth::check()) {
+            $user = Auth::user();
+            $seller = 'pedagang pasar';
+            $buyer = 'buyer';
+            if($user->user_type == $seller){
+                return redirect('/seller');
+            }elseif($user->user_type == $buyer){
+                return view('buyer.main');
+            }
+        }else{
+            return view('buyer.main');
+        }
+    }
 }

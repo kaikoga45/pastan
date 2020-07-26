@@ -55,16 +55,16 @@
                     <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                         <span class="user-icon">
                             @if (Auth::user()->image_path == 'src/images/avatar.png')
-                            <img src="src/images/avatar.png" alt="">
+                            <img src="src/images/avatar.png">
                             @else
-                            <img src="{{asset('image/'.Auth::user()->image_path)}}" alt="">
+                            <img src="{{asset('image/'.Auth::user()->image_path)}}" style="width: 100%; height: 100%">
                             @endif
                         </span>
                         <span class="user-name">{{Auth::user()->name}}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                        <a class="dropdown-item" href="/profile"><i class="dw dw-user1"></i>Profile</a>
-                        <a class="dropdown-item" href="/logout"><i class="dw dw-logout"></i> Log Out</a>
+                        <a class="dropdown-item" href="/profile"><i class="dw dw-user1"></i>Profil</a>
+                        <a class="dropdown-item" href="/logout"><i class="dw dw-logout"></i>Keluar</a>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
             <div class="dashboard-setting user-notification">
                 <div class="dropdown">
                     <a class="dropdown-toggle no-arrow" href="/login">
-                        <i class="dw dw-login"></i>
+                        <i class="dw dw-login"> Masuk</i>
                     </a>
                 </div>
             </div>

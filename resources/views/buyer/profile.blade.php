@@ -12,7 +12,7 @@ Profil
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
                         <div class="title">
-                            <h4>Profile</h4>
+                            <h4>Profil</h4>
                         </div>
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
@@ -48,7 +48,8 @@ Profil
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mb-30">
                     <div class="pd-20 card-box height-100-p">
                         <div class="profile-photo">
-                            <img src="{{asset('image/'.$data_user->image_path)}}" alt="" class="avatar-photo">
+                            <img src="{{asset('image/'.$data_user->image_path)}}" alt="" class="avatar-photo"
+                                style="width: 100%; height:100%">
                         </div>
                         <h5 class="text-center h5 mb-0">{{$data_user->name}}</h5>
                         <p class="text-center text-muted font-14">Bergabung sejak {{$data_user->created_at}}</p>

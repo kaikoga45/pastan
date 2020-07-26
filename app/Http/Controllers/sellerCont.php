@@ -74,13 +74,13 @@ class sellerCont extends Controller
             $imageStore = $req->file('image');
             $fileArray = array('image' => $imageStore);
             $rules = array(
-            'image' => 'mimes:jpeg,jpg,png,gif|required|max:10000' // max 10000kb
+            'image' => 'mimes:jpeg,jpg,png|required' // max 10000kb
             );
 
             $validator = Validator::make($fileArray, $rules);
 
             if ($validator->fails()){
-                return redirect()->back()->with('notImage', 'File yang anda upload bukan tipe gambar. Periksa kembali file yang anda upload!');
+                return redirect()->back()->with('notImage', 'Gambar gagal diupload! Pastikan gambar anda bertipe .jpeg / .jpg / .png');
             }else{
                 if($data_item->item_image_path != null){
                     Storage::delete($data_item->item_image_path);
@@ -100,7 +100,7 @@ class sellerCont extends Controller
         $data_item->item_status = $req->status;
         $data_item->save();
 
-        return redirect('/item')->with('processComplete', 'Keterangan barang telah berhasil diubah');
+        return redirect('/item')->with('processComplete', 'Keterangan barang telah berhasil di perbarui');
     }
 
     public function deleteItem($id){
@@ -135,13 +135,13 @@ class sellerCont extends Controller
         $imageStore = $req->file('image');
         $fileArray = array('image' => $imageStore);
         $rules = array(
-        'image' => 'mimes:jpeg,jpg,png,gif|required|max:10000' // max 10000kb
+        'image' => 'mimes:jpeg,jpg,png|required' // max 10000kb
         );
 
         $validator = Validator::make($fileArray, $rules);
 
         if ($validator->fails()){
-            return redirect()->back()->with('notImage', 'File yang anda upload bukan tipe gambar. Periksa kembali file yang anda upload!');
+            return redirect()->back()->with('notImage', 'Gambar gagal diupload! Pastikan gambar anda bertipe .jpeg / .jpg / .png');
         }else{
             $image = $req->file('image')->store('item');
         }
@@ -191,7 +191,7 @@ class sellerCont extends Controller
         
         if($alone_sender == 'true'){
             buyerOrder::where('id_buyer', '=',$id)->update(['status_order'=>'Telah dikonfirmasi. Silahkan ditunggu!', 'status_alone'=>'true']);
-            return redirect()->back()->with('processComplete', 'Berhasil dikonfirmasi. Segere persiapkan pesannnya dan segera panggil tukang ojek untuk mengantar barang ke lokasi pemesan!');
+            return redirect()->back()->with('processComplete', 'Berhasil dikonfirmasi. Segere persiapkan pesannnya serta panggil tukang ojek untuk mengantar barang ke lokasi pemesan!');
         }else{
             foreach ($distinct_seller_info as $dsi) {
                 if($dsi->id_seller != $seller->id){
@@ -216,30 +216,33 @@ class sellerCont extends Controller
 
         $data_user = User::where('id','=', $user->id)->first();
 
+        $data_user->name = $req->name;
+        $data_user->phone_number = Crypt::encrypt($req->phone_number);
+        $data_user->address = Crypt::encrypt($req->address);
+
         if($req->hasFile('image')){
             $imageStore = $req->file('image');
             $fileArray = array('image' => $imageStore);
             $rules = array(
-            'image' => 'mimes:jpeg,jpg,png,gif|required|max:10000' // max 10000kb
+            'image' => 'mimes:jpeg,jpg,png|required' // max 10000kb
             );
 
             $validator = Validator::make($fileArray, $rules);
 
             if ($validator->fails()){
-                return redirect()->back()->with('notImage', 'File yang anda upload bukan tipe gambar. Periksa kembali file yang anda upload!');
+                $data_user->save();
+                return redirect()->back()->with('notImage', 'Gambar gagal diupload! Pastikan gambar anda bertipe .jpeg / .jpg / .png');
             }else{
                 if($data_user->image_path != null){
                     Storage::delete($data_user->image_path);
                     $image = $req->file('image')->store('profile');  
                     $data_user->image_path = $image;
+                    $data_user->save();
                 }
             }
+        }else{
+            $data_user->save();
         }
-
-        $data_user->name = $req->name;
-        $data_user->phone_number = Crypt::encrypt($req->phone_number);
-        $data_user->address = Crypt::encrypt($req->address);
-        $data_user->save();
         return redirect ()->back()->with('processComplete', 'Telah berhasil melakukan update data pribadi anda!');
     }
     

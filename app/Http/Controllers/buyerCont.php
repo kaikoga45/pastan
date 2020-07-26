@@ -33,7 +33,7 @@ class buyerCont extends Controller
                     if($amount_buyer_buy > $data_item->item_stock){
                         return redirect()->back()->with('addError', 'Maaf, jumlah item yang anda pesan telah melebihi stock item tersebut.'); 
                     }elseif($total_amount_buyer_buy < $data_item->item_minimum){
-                        return redirect()->back()->with('addError', 'Maaf, jumlah item yang anda kurang dari minimal pembelian'); 
+                        return redirect()->back()->with('addError', 'Maaf, jumlah item yang anda pesan kurang dari minimal pembelian'); 
                     }else{
                         $current_amount_item = $cart_buyer->quantity_item;
                         $cart_buyer->quantity_item = $current_amount_item + $req->demo3_22;
@@ -61,7 +61,7 @@ class buyerCont extends Controller
                     if($amount_buyer_buy > $data_item->item_stock){
                         return redirect()->back()->with('addError', 'Maaf, jumlah item yang anda pesan telah melebihi stock item tersebut.'); 
                     }elseif($amount_buyer_buy < $data_item->item_minimum){
-                        return redirect()->back()->with('addError', 'Maaf, jumlah item yang anda kurang dari minimal pembelian'); 
+                        return redirect()->back()->with('addError', 'Maaf, jumlah item yang anda pesan kurang dari minimal pembelian'); 
                     }else{
                         $add_cart_data = new cart;
                     
@@ -84,7 +84,7 @@ class buyerCont extends Controller
                     }
                 } 
             }else{
-                return redirect()->back()->with('addError', 'Saat ini anda tidak diperbolehkan untuk berbelanja kebutuhan. Anda harus tunggu sampai pesanan anda sebelumnnya telah berhasil diantarkan ke anda!');
+                return redirect()->back()->with('addError', 'Saat ini anda tidak diperbolehkan untuk berbelanja. Anda harus menunggu sampai pesanan anda sebelumnnya telah berhasil dikonfirmasi telah sampai ke anda!');
             }
         }else{
             return redirect ('/profile')->with('noProfileData', 'Anda harus mengisi data nomor telepon beserta alamat tempat tinggal untuk keperluan mengantar pesanan anda ke lokasi yang ditujukan');
@@ -124,7 +124,7 @@ class buyerCont extends Controller
             $data_cart->quantity_item = $newQty;
             $data_cart->sub_total_price = $newPrice;
             $data_cart->save();
-            return redirect()->back()->with('addError', 'Maaf, jumlah item yang anda pesan telah melebihi stock item tersebut. Jumlah item di keranjang anda telah dikurangi agar sesuai dengan jumlah stock item yang ada!'); 
+            return redirect()->back()->with('addError', 'Maaf, jumlah item yang anda pesan telah melebihi stock item tersebut sehingga dikurangi agar sesuai dengan jumlah stock item yang ada!'); 
         }elseif($quantity_cart_after == $data_item->item_stock){
             $newQty = $data_cart->quantity_item + 1;
             $newPrice = $newQty * $data_item->item_price;
@@ -171,7 +171,7 @@ class buyerCont extends Controller
             $data_cart->sub_total_price = $newPrice;
             $data_cart->save();
             
-            return redirect()->back()->with('addError', 'Maaf, jumlah item yang anda pesan telah melebihi stock item tersebut. Jumlah item di keranjang anda telah dikurangi agar sesuai dengan jumlah stock item yang ada!'); 
+            return redirect()->back()->with('addError', 'Maaf, jumlah item yang anda pesan telah melebihi stock item tersebut sehingga telah dikurangi agar sesuai dengan jumlah stock item yang ada!'); 
         }elseif($quantity_cart_after < $data_item->item_minimum){
             
             return redirect()->back()->with('addError', 'Maaf, Jumlah item yang anda ingin kurangi telah mencapai batas minimum jumlah item bisa dibeli!'); 
@@ -215,31 +215,35 @@ class buyerCont extends Controller
 
         $data_user = User::where('id','=', $user->id)->first();
 
+        $data_user->name = $req->name;
+        $data_user->phone_number = Crypt::encrypt($req->phone_number);
+        $data_user->address = Crypt::encrypt($req->address);
+
         if($req->hasFile('image')){
             $imageStore = $req->file('image');
             $fileArray = array('image' => $imageStore);
             $rules = array(
-            'image' => 'mimes:jpeg,jpg,png,gif|required|max:10000' // max 10000kb
+            'image' => 'mimes:jpeg,jpg,png|required'
             );
 
             $validator = Validator::make($fileArray, $rules);
 
             if ($validator->fails()){
-                return redirect()->back()->with('notImage', 'File yang anda upload bukan tipe gambar. Periksa kembali file yang anda upload!');
+                $data_user->save();
+                return redirect()->back()->with('notImage', 'Gambar gagal diupload! Pastikan gambar anda bertipe .jpeg / .jpg / .png');
             }else{
                 if($data_user->image_path != null){
                     Storage::delete($data_user->image_path);
                     $image = $req->file('image')->store('profile');  
                     $data_user->image_path = $image;
+                    $data_user->save();
                 }
             }
+        }else{
+            $data_user->save();
         }
-
-        $data_user->name = $req->name;
-        $data_user->phone_number = Crypt::encrypt($req->phone_number);
-        $data_user->address = Crypt::encrypt($req->address);
-        $data_user->save();
-        return redirect ()->back()->with('processComplete', 'Telah berhasil melakukan update data pribadi anda!');
+        
+        return redirect ()->back()->with('processComplete', 'Telah berhasil melakukan perbarui data pribadi anda!');
     }
 
     public function addOrder(){
@@ -297,7 +301,7 @@ class buyerCont extends Controller
 
             buyerOrder::where('id_buyer', '=',$user->id)->update(['status_order'=>'Menunggu konfirmasi penjual']);
             cart::where('id_buyer','=', $user->id)->delete();
-            return redirect('/orderBuyer')->with('addComplete', 'Berhasil diproses! Anda bisa melihat status pesanan di halaman ini atau di menu status pesanan. Tolong refresh halamannya untuk mendapatkan data terbaru!');
+            return redirect('/orderBuyer')->with('addComplete', 'Berhasil diproses! Anda bisa melihat status pesanan di lewat menu status pesanan. Tolong perbarui halamannya untuk mendapatkan data terbaru!');
         }
         
     }

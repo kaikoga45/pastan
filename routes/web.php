@@ -48,9 +48,7 @@ Route::post('/postForgetNewPass', 'authCont@resetNewPass');
 
 
 /*                  Route for Index             */
-Route::get('/', function () {
-    return view('buyer.main');
-});
+Route::get('/', 'authCont@splitUser');
 
 Route::group(['middleware' => ['auth']], function () {
     /*              Route for Auth              */

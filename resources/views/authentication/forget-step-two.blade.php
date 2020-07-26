@@ -43,13 +43,10 @@
                 <div class="col-md-6 col-lg-5">
                     <div class="login-box bg-white box-shadow border-radius-10">
                         <div class="login-title">
-                            <h2 class="text-center text-primary">Reset Kata Sandi Akun</h2>
+                            <h2 class="text-center text-primary">Pastikan kepemilikan akun ini</h2>
                         </div>
                         <div class="alert alert-info" role="alert" style="text-align: justify">
-                            Sebuah email telah dikirim ke <strong>{{ session('data_email') }}</strong>, yang berisi 6
-                            digit angka.
-                            Buka kotak masuk email anda, kemudian salin 6 digit angka tersebut dan tempel ke kotak bawah
-                            ini untuk membantu reset kata sandi akun anda.
+                            Masukkan 6 digit angka yang kami kirim ke <strong>{{ session('data_email') }}</strong>
                         </div>
                         @if (session('NotMatch'))
                         <div class="alert alert-danger alert-dismissible">
