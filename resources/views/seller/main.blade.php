@@ -23,6 +23,28 @@ Beranda
                 </div>
             </div>
         </div>
+        <div class="page-header">
+            <div class="row">
+                <div class="col-7 col-md-6 col-sm-12">
+                    <div class="title">
+                        <h4>Status Menjual : {{$status_seller}}</h4>
+                    </div>
+                </div>
+                @if ($status_seller == "Aktif")
+                <div class="col-5 col-md-6 col-sm-12 text-right">
+                    <a class="btn btn-primary" href="/changeStatusSeller">
+                        Ubah
+                    </a>
+                </div>
+                @else
+                <div class="col-5 col-md-6 col-sm-12 text-right">
+                    <a class="btn btn-warning" href="/changeStatusSeller">
+                        Ubah
+                    </a>
+                </div>
+                @endif
+            </div>
+        </div>
         <div class="row">
             <div class="col-xl-4 mb-30">
                 <div class="card-box height-100-p widget-style1">

@@ -32,6 +32,12 @@ Beranda
             <strong>{{ session('addError') }}!</strong>
         </div>
         @endif
+        @if (session('noteSuccess'))
+        <div class="alert alert-success alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>{{ session('noteSuccess') }}!</strong>
+        </div>
+        @endif
         <!-- Begin Display Product -->
         <div class="search-icon-box card-box mb-30">
             <input type="text" class="border-radius-10" id="myInput" onkeyup="myFunction()"

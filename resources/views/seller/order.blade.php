@@ -93,7 +93,7 @@ $data_order = \App\buyerOrder::distinct()->select('buyer_name','buyer_address', 
                         <td>
 
                             @if ($dto->sender == $seller->id && $dto->status_order == $wait_confirm_status)
-                            <a href="/confirmOrder/{{$dto->id_buyer}}" class="btn btn-primary">Konfirmasi Pesanan</a>
+                            <a href="/confirmOrder/{{$dto->id_buyer}}" class="btn btn-primary">Terima Pesanan</a>
                             @elseif($dto->sender == $seller->id && $dto->status_order == $confirm_status)
                             @if ($dto->status_alone == $true_alone)
                             <p>Persiapkan pesanannya untuk <br>

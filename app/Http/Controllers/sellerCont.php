@@ -23,7 +23,8 @@ class sellerCont extends Controller
         $data_item = item::where('item_id_seller','=', $seller->id);
         $check_stock = item::where([['item_stock','=', 0], ['item_id_seller','=', $seller->id]]);
         $check_order = buyerOrder::distinct()->select('id_seller')->where('id_seller','=', $seller->id)->get();
-        return view('seller.main', ['data_item'=>$data_item, 'zero_stock'=>$check_stock, 'check_order'=>$check_order]);
+        $status_seller = $seller->seller_status;
+        return view('seller.main', ['data_item'=>$data_item, 'zero_stock'=>$check_stock, 'check_order'=>$check_order, 'status_seller'=>$status_seller]);
     }
 
     public function showItempage(){
@@ -31,6 +32,35 @@ class sellerCont extends Controller
         $data_item = item::where('item_id_seller','=', $seller->id)->get();
 
         return view('seller.item', ['data_item'=>$data_item]);
+    }
+
+    public function statusSeller(){
+        $seller = Auth::user();
+        $aktif = 'Aktif';
+        $nonaktif = 'Istrahat';
+
+        if($seller->seller_status == $aktif){
+            User::where('id', '=', $seller->id)->update(['seller_status'=>$nonaktif]);
+            $checkNotAvailable = item::select('item_status')->where([['item_id_seller', '=', $seller->id],['item_status', '=', 'tidak tersedia']])->get();
+            if(count($checkNotAvailable )!=0){
+                $markNotReady = 'tidak tersedia-x';
+                item::where([['item_id_seller', '=', $seller->id],['item_status', '=', 'tidak tersedia']])->update(['item_status'=>$markNotReady]);
+                item::where([['item_id_seller', '=', $seller->id],['item_status', '=', 'tersedia']])->update(['item_status'=>'tidak tersedia']);
+            }else{
+                item::where([['item_id_seller', '=', $seller->id],['item_status', '=', 'tersedia']])->update(['item_status'=>'tidak tersedia']);
+            }
+        }elseif($seller->seller_status == $nonaktif){
+            User::where('id', '=', $seller->id)->update(['seller_status'=>$aktif]);         
+            $checkNotAvailable = item::select('item_status')->where([['item_id_seller', '=', $seller->id],['item_status', '=', 'tidak tersedia-x']])->get();
+            if(count($checkNotAvailable)!=0){
+                $markNotReady = 'tidak tersedia';
+                item::where([['item_id_seller', '=', $seller->id],['item_status', '=', 'tidak tersedia']])->update(['item_status'=>'tersedia']);
+                item::where([['item_id_seller', '=', $seller->id],['item_status', '=', 'tidak tersedia-x']])->update(['item_status'=>$markNotReady]);
+            }else{
+                item::where([['item_id_seller', '=', $seller->id],['item_status', '=', 'tidak tersedia']])->update(['item_status'=>'tersedia']);
+            }
+        }
+        return redirect()->back();
     }
 
     public function changeStatus($id){

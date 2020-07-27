@@ -47,8 +47,14 @@ Route::post('/postForgetNewPass', 'authCont@resetNewPass');
 
 
 
-/*                  Route for Index             */
-Route::get('/', 'authCont@splitUser');
+/*                  Non Protected Route for Buyer             */
+Route::get('/', function(){
+    return view('buyer.main');
+});
+
+Route::get('/guide', function(){
+    return view('buyer.guide');
+});
 
 Route::group(['middleware' => ['auth']], function () {
     /*              Route for Auth              */
@@ -59,6 +65,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/addToCart', 'buyerCont@addToCart');
 
     /*              Route for buyer             */
+    Route::post('/noteCart', 'buyerCont@noteCart');
+
     Route::post('/addToCart', 'buyerCont@addToCart');
 
     Route::get('/deleteSpecificCart/{id}', 'buyerCont@deleteSpecificItemCart');
@@ -80,6 +88,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/receiveOrder', 'buyerCont@receiveOrder');
 
     /*              Route for Seller            */
+    Route::get('/changeStatusSeller', 'sellerCont@statusSeller');
+
     Route::get('/profileSeller', 'sellerCont@showViewProfile');
 
     Route::get('/seller', 'sellerCont@showHomepage');

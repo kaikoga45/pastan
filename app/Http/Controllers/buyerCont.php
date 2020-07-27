@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+
 use App\cart;
 use App\item;
 use App\buyerOrder;
@@ -12,6 +14,8 @@ use Storage;
 use Validator;
 use Crypt;
 use Auth;
+
+use App\Mail\NotifyUser;
 
 class buyerCont extends Controller
 {
@@ -89,6 +93,14 @@ class buyerCont extends Controller
         }else{
             return redirect ('/profile')->with('noProfileData', 'Anda harus mengisi data nomor telepon beserta alamat tempat tinggal untuk keperluan mengantar pesanan anda ke lokasi yang ditujukan');
         }
+    }
+
+    public function noteCart(Request $req){
+        $user = Auth::user();
+        cart::where([['id_buyer', '=', $user->id], 
+        ['id_item', '=', $req->idItem]])->update(['note'=>$req->noteBuyer]);
+
+        return redirect()->back()->with('noteSuccess', 'Berhasil ditambahkan catatan ke bahan yang anda pilih!');
     }
 
     public function deleteSpecificItemCart($id_item){
@@ -260,9 +272,9 @@ class buyerCont extends Controller
                 $combine = $item_name." ".$message;
                 $check_go = 'false';
                 return redirect()->back()->with('addError', $combine);
-            }elseif($data_item->item_status == 'tidak tersedia'){
+            }elseif($data_item->item_status == 'tidak tersedia' || $data_item->item_status == 'tidak tersedia-x'){
                 $item_name = $dtc->item_name;
-                $message =  'yang anda pesan, saat ini tidak tidak tersedia sehingga tidak bisa dibeli!';
+                $message =  'yang anda pesan, saat ini tidak tersedia sehingga tidak bisa dibeli!';
                 $combine = $item_name." ".$message;
                 $check_go = 'false';
                 return redirect()->back()->with('addError', $combine);
@@ -270,9 +282,25 @@ class buyerCont extends Controller
         }
 
         if($check_go == 'true'){
+            $id_seller = cart::distinct()->select('id_seller')->where('id_buyer','=', $user->id)->get();
+            foreach($id_seller as $ids){
+                $seller = User::where('id', '=', $ids->id_seller)->first();
+                
+                $sellerName = $seller->name;
+                $sellerEmail = $seller->email;
+
+                $data_notify = array(
+                    'nama' => $sellerName,
+                    'message' => 'Anda telah mendapatkan pesanan terbaru. Segera kunjungi ke situsnya dengan klik alamat berikut ini : pasartanawangko.my.id/seller'
+                );
+        
+                Mail::to($sellerEmail)->send(new NotifyUser($data_notify));
+            }
+
             $who_send = cart::distinct()->select('id_seller')->where('id_buyer','=', $user->id)->inRandomOrder()->limit(1)->first();
 
             foreach($data_cart as $dtc){
+                
                 $data_item = item::where('item_id', '=',$dtc->id_item)->first();
                 $add_buyerOrder_data = new buyerOrder;
                 $buyer_info = Auth::user();
@@ -290,7 +318,8 @@ class buyerCont extends Controller
                 $add_buyerOrder_data->total_price = $dtc->sub_total_price;
                 $add_buyerOrder_data->sender = $who_send->id_seller;
                 $name_sender = item::where('item_id_seller', '=',$who_send->id_seller)->first();
-                $add_buyerOrder_data->sender_name = $name_sender->item_name_seller;           
+                $add_buyerOrder_data->sender_name = $name_sender->item_name_seller;      
+                $add_buyerOrder_data->note = $dtc->note;  
                 $add_buyerOrder_data->save();
 
                 $current_qty = $data_item->item_stock;

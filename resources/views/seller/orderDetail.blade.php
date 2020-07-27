@@ -37,6 +37,7 @@ Detail Pesanan
                         <th>Nama Barang</th>
                         <th>Jumlah</th>
                         <th>Tipe Berat</th>
+                        <th>Catatan</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,6 +46,11 @@ Detail Pesanan
                         <td>{{$dto->item_name}}</td>
                         <td>{{$dto->item_quantity}}</td>
                         <td>{{$dto->item_type_sell}}</td>
+                        @if ($dto->note == null)
+                        <td>Tidak Ada</td>
+                        @else
+                        <td>{{$dto->note}}</td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>

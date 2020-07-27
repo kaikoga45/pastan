@@ -129,6 +129,36 @@
                                                 aria-hidden="true"></i></i></a>
                                     </div>
                                 </div>
+                                @php
+                                if($cdt->note == null){
+                                $note = '...';
+                                $noteCheck = 'false';
+                                }else{
+                                $noteCheck = 'true';
+                                $note = $cdt->note;
+                                }
+                                @endphp
+                                <form action="/noteCart" method="POST">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" value="{{$cdt->id_item}}" name="idItem">
+                                    <div class="form-group row">
+                                        <div class="col-12 col-lg-12 col-sm-12 col-md-12">
+                                            <input class="form-control" placeholder="{{$note}}" type="text"
+                                                name="noteBuyer" style="margin-top:10px;text-align:center">
+                                        </div>
+                                        @if ($noteCheck == 'false')
+                                        <div class="col-12 col-lg-12 col-sm-12 col-md-12">
+                                            <button class="btn btn-info" style="width: 100%; margin-top:10px">Tambah
+                                                Catatan</button>
+                                        </div>
+                                        @else
+                                        <div class="col-12 col-lg-12 col-sm-12 col-md-12">
+                                            <button class="btn btn-info" style="width: 100%; margin-top:10px">Update
+                                                Catatan</button>
+                                        </div>
+                                        @endif
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
