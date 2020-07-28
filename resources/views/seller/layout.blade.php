@@ -87,6 +87,11 @@
                             <span class="micon dw dw-money"></span><span class="mtext">Pesanan</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="/guideSeller" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-question"></span><span class="mtext">Bantuan</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

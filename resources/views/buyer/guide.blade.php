@@ -12,12 +12,12 @@ Panduan
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
                         <div class="title">
-                            <h4>Pandua</h4>
+                            <h4>Panduan</h4>
                         </div>
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/">Beranda</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Pandua</li>
+                                <li class="breadcrumb-item active" aria-current="page">Panduan</li>
                             </ol>
                         </nav>
                     </div>
@@ -28,13 +28,22 @@ Panduan
                     <div class="card">
                         <div class="card-header">
                             <button class="btn btn-block" data-toggle="collapse" data-target="#faq1">
-                                Cara melakukan registrasi akun PasTan
+                                Bagaimana cara melakukan registrasi akun?
                             </button>
                         </div>
                         <div id="faq1" class="collapse show" data-parent="#accordion">
                             <div class="card-body">
                                 1. Pergi ke menu login yang terletak di pojok kanan atas yang ada tulisan 'Masuk',
-                                kemudian tekan tombol ''
+                                kemudian anda akan dibawakan ke halaman login. <br>
+                                2. Pilih "registrasi untuk membuat akun" lalu masukkan data-data berupa nama lengkap
+                                anda, email anda (Pastikan email anda dalam status aktif agar kami bisa mengirimkan
+                                sebuah email konfirmasi ke anda), dan kata sandi (Pastikan kata sandinya minimal
+                                panjangnya 6)<br>
+                                3. Setelah melakukan pengisian data, silahkan anda melakukan login dengan menggunakan
+                                email dan kata sandi yang sebelumnya sudah dibuat.<br>
+                                4. Anda akan ditampilkan sebuahn halaman konfirmasi, yang mana anda harus memasukkan 6
+                                digit kode yang telah dikirimkan ke email anda. Silahkan periksa kembali kotak masuk
+                                email anda!
                             </div>
                         </div>
                     </div>

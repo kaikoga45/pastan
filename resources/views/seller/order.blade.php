@@ -59,12 +59,15 @@ $data_order = \App\buyerOrder::distinct()->select('buyer_name','buyer_address', 
         session()->forget('infoWhereToSendIt');
         @endphp
         @endif
-
+        @php
+        $no = 1;
+        @endphp
         <div class="card-box mb-30">
             <h2 class="h4 pd-20">Data Pesanan Terbaru</h2>
             <table class="data table stripe hover nowrap">
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th>Nama Pemesan</th>
                         <th>Alamat</th>
                         <th>Nomor Kontak</th>
@@ -85,6 +88,7 @@ $data_order = \App\buyerOrder::distinct()->select('buyer_name','buyer_address', 
                     $seller->id]])->sum('total_price');
                     @endphp
                     <tr>
+                        <td>{{$no++}}</td>
                         <td>{{$dto->buyer_name}}</td>
                         <td>{{Crypt::decrypt($dto->buyer_address)}}</td>
                         <td>{{Crypt::decrypt($dto->buyer_phone_number)}}</td>
@@ -137,7 +141,7 @@ $data_order = \App\buyerOrder::distinct()->select('buyer_name','buyer_address', 
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             "language": {
                 "info": "_START_-_END_ of _TOTAL_ entries",
-                searchPlaceholder: "Search"
+                searchPlaceholder: "Pencarian"
             },
         });
     });

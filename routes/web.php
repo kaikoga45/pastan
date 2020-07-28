@@ -52,7 +52,7 @@ Route::get('/', function(){
     return view('buyer.main');
 });
 
-Route::get('/guide', function(){
+Route::get('/guideUser', function(){
     return view('buyer.guide');
 });
 
@@ -88,6 +88,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/receiveOrder', 'buyerCont@receiveOrder');
 
     /*              Route for Seller            */
+    Route::get('/guideSeller', function(){
+        return view('seller.guide');
+    });
+
     Route::get('/changeStatusSeller', 'sellerCont@statusSeller');
 
     Route::get('/profileSeller', 'sellerCont@showViewProfile');
