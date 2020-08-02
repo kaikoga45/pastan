@@ -73,6 +73,8 @@ Tambah Item
                     <div class="col-sm-12 col-md-10">
                         <input class="form-control" placeholder="Jumlah Barang Didapatkan Dengan Harganya" type="number"
                             name="price_get" required>
+                        <label>Mis. Anda masukkan 8 jumlah didapatkan, berarti
+                            pembeli akan mendapat jumlah 8 barang dengan harga yang ditetapkan!</label>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -80,6 +82,9 @@ Tambah Item
                     <div class="col-sm-12 col-md-10">
                         <input class="form-control" placeholder="Jumlah minimum agar bisa dibeli" type="number"
                             name="minimum_get" required>
+                        <label>Mis. Anda masukkan 2 jumlah minimum, berarti
+                            pembeli harus memesan 2 jumlah barang agar bisa dibelikan. Jika dibawah minimum, maka
+                            pembeli tidak bisa pesan barang tersebut!</label>
                     </div>
                 </div>
                 <div class="form-group row">
